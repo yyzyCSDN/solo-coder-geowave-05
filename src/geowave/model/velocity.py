@@ -55,4 +55,5 @@ class VelocityModel1D:
             return 0.0
         zs = np.linspace(0, z, steps)
         vs = np.interp(zs, self.depths_m, self.velocities_mps)
-        return float(np.trapezoid(1.0 / vs, zs))
+        integrator = getattr(np, 'trapezoid', np.trapz)
+        return float(integrator(1.0 / vs, zs))
